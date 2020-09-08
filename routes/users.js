@@ -1,8 +1,8 @@
 // import {generateJWTToken} from "../security/jwt";
 
-const passport = require("passport");
+import passport from 'passport';
 
-const express = require('express');
+import express from 'express';
 const router = express.Router();
 
 /* GET users listing. */
@@ -24,4 +24,4 @@ router.post('/login', function(req, res, next) {
   })(req, res);
 });
 
-module.exports = router;
+export default router;

@@ -1,5 +1,5 @@
-const passport = require('passport');
-const LocalStrategy = require('passport-local');
+import passport from 'passport';
+import LocalStrategy from 'passport-local';
 
 passport.use(new LocalStrategy({
     usernameField: 'email',

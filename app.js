@@ -1,26 +1,17 @@
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
+import express from 'express';
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-
-require('./security/passport');
+import indexRouter from './routes/index.js';
+import usersRouter from './routes/users.js';
+import './security/passport.js';
 
 
 const app = express();
 
-app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -43,4 +34,4 @@ app.use(function(err, req, res, next) {
     });
 });
 
-module.exports = app;
+export default app;
