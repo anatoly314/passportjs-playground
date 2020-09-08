@@ -1,5 +1,7 @@
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
+import PassportJwt from 'passport-jwt';
+const { Strategy, ExtractJwt } = PassportJwt;
 
 passport.use(new LocalStrategy({
     usernameField: 'email',
@@ -18,4 +20,13 @@ passport.use(new LocalStrategy({
             }
         });
     }
+}));
+
+
+const jwtStrategyOptions = {}
+jwtStrategyOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+jwtStrategyOptions.secretOrKey = process.env.JWT_PRIVATE_KEY;
+
+passport.use(new Strategy(jwtStrategyOptions, function(jwt_payload, done) {
+    return done(null, jwt_payload);
 }));

@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import pify from "pify";
 
 export async function generateJWTToken(email){
-    const jwtSecret = process.env.JWT_PRIVATE_KEY || 'jwt_secret_replace_in_production';
+    const jwtSecret = process.env.JWT_PRIVATE_KEY;
     try {
         const payload = {
             email: email
@@ -16,7 +16,7 @@ export async function generateJWTToken(email){
 }
 
 export async function getUserPhoneFromJWTToken(jwtToken){
-    const jwtSecret = process.env.JWT_PRIVATE_KEY || 'jwt_secret_replace_in_production';
+    const jwtSecret = process.env.JWT_PRIVATE_KEY;
     try {
         const decodedToken = await pify(jwt.verify)(jwtToken, jwtSecret, { algorithm: 'HS256' });
         return decodedToken;

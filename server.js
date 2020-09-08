@@ -1,5 +1,5 @@
-import dotenv from 'dotenv';
-dotenv.config();
+import 'dotenv/config.js';  //https://github.com/motdotla/dotenv/issues/89
+// dotenv.config();
 
 import app from "./app.js";
 

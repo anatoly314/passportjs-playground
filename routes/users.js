@@ -1,4 +1,4 @@
-// import {generateJWTToken} from "../security/jwt";
+import {generateJWTToken} from "../security/jwt.js";
 
 import passport from 'passport';
 
@@ -6,12 +6,12 @@ import express from 'express';
 const router = express.Router();
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', passport.authenticate('jwt', { session: false }), function(req, res, next) {
   res.json([1,2,3]);
 });
 
-router.post('/login', function(req, res, next) {
-  passport.authenticate('local', {session: false}, (err, user, info) => {
+router.post('/login', async function(req, res, next) {
+  passport.authenticate('local', {session: false}, async (err, user, info) => {
     if (err || !user) {
       return res.status(400).json({
         message: 'Something is not right',
@@ -19,7 +19,7 @@ router.post('/login', function(req, res, next) {
       });
     }
 
-    const token = 'ttttttt';//generateJWTToken(user.email);
+    const token = await generateJWTToken(user.email);
     return res.json({user, token});
   })(req, res);
 });
